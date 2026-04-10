@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Fragment, useCallback, useState } from "react";
+import { Fragment, useCallback } from "react";
 import { RequestFormField } from "../../../ticket-fields";
 import { Button } from "@zendeskgarden/react-buttons";
 import { getColor } from "@zendeskgarden/react-theming";
@@ -21,6 +21,7 @@ import type {
   AttachmentsError,
   AttachmentsOption,
 } from "../../data-types/Attachments";
+import { Skeleton } from "@zendeskgarden/react-loaders";
 
 const Form = styled.form`
   display: flex;
@@ -95,6 +96,12 @@ const LeftColumn = styled.div`
   }
 `;
 
+const ButtonSkeleton = styled(Skeleton)`
+  width: 100%;
+  height: 48px;
+  display: block;
+`;
+
 const isAssetField = (f: TicketFieldObject) =>
   f.relationship_target_type === ASSET_KEY;
 const isAssetTypeField = (f: TicketFieldObject) =>
@@ -125,7 +132,8 @@ interface ItemRequestFormProps {
   isAssetTypeHidden: boolean;
   assetTypeIds: string[];
   assetIds: string[];
-  isSubmitting: boolean;
+  onAttachmentUploadingChange: (isUploading: boolean) => void;
+  isFormInitializing: boolean;
 }
 
 export function ItemRequestForm({
@@ -150,11 +158,10 @@ export function ItemRequestForm({
   isAssetTypeHidden,
   assetTypeIds,
   assetIds,
-  isSubmitting,
+  onAttachmentUploadingChange,
+  isFormInitializing,
 }: ItemRequestFormProps) {
   const { t } = useTranslation();
-
-  const [isUploadingAttachments, setIsUploadingAttachments] = useState(false);
 
   const buildLookupFieldOptions = async (
     records: CustomObjectRecord[],
@@ -228,9 +235,9 @@ export function ItemRequestForm({
   const handleAttachmentsOnUpload = useCallback(
     (status: boolean) => {
       setAttachmentsRequiredError(null);
-      setIsUploadingAttachments(status);
+      onAttachmentUploadingChange(status);
     },
-    [setAttachmentsRequiredError, setIsUploadingAttachments]
+    [setAttachmentsRequiredError, onAttachmentUploadingChange]
   );
 
   const renderRequestFields = () => {
@@ -335,15 +342,13 @@ export function ItemRequestForm({
       </LeftColumn>
       <RightColumn>
         <ButtonWrapper>
-          <Button
-            disabled={isUploadingAttachments || isSubmitting}
-            isPrimary
-            size="large"
-            isStretched
-            type="submit"
-          >
-            {t("service-catalog.item.submit-button", "Submit request")}
-          </Button>
+          {isFormInitializing ? (
+            <ButtonSkeleton />
+          ) : (
+            <Button isPrimary size="large" isStretched type="submit">
+              {t("service-catalog.item.submit-button", "Submit request")}
+            </Button>
+          )}
         </ButtonWrapper>
       </RightColumn>
     </Form>
