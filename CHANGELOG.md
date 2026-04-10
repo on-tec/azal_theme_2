@@ -1,3 +1,10 @@
+## [4.35.1](https://github.com/zendesk/copenhagen_theme/compare/v4.35.0...v4.35.1) (2026-04-10)
+
+
+### Bug Fixes
+
+* trim category name in dropdown ([b87ef36](https://github.com/zendesk/copenhagen_theme/commit/b87ef369800740d3e239a22d7532d2dafad1ce39))
+
 # [4.35.0](https://github.com/zendesk/copenhagen_theme/compare/v4.34.0...v4.35.0) (2026-04-10)
 
 
