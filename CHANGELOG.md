@@ -1,3 +1,10 @@
+# [4.35.0](https://github.com/zendesk/copenhagen_theme/compare/v4.34.0...v4.35.0) (2026-04-10)
+
+
+### Features
+
+* add setting to enable and disable suggested articles ([833bb34](https://github.com/zendesk/copenhagen_theme/commit/833bb349a8661bd0b3aa15205bde533a76ed7c2e))
+
 # [4.34.0](https://github.com/zendesk/copenhagen_theme/compare/v4.33.5...v4.34.0) (2026-03-30)
 
 
