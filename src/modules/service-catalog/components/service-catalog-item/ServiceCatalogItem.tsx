@@ -48,6 +48,7 @@ export interface ServiceCatalogItemProps {
   brandId: number;
   organizations: Array<Organization>;
   helpCenterPath: string;
+  userName: string;
 }
 
 function getCategoryIdFromUrl(): string | null {
@@ -63,6 +64,7 @@ export function ServiceCatalogItem({
   organizations,
   userId,
   brandId,
+  userName,
   helpCenterPath,
 }: ServiceCatalogItemProps) {
   const { serviceCatalogItem, errorFetchingItem } =
@@ -112,6 +114,8 @@ export function ServiceCatalogItem({
 
   const attachmentsOptionId =
     serviceCatalogItem?.custom_object_fields?.["standard::attachment_option"];
+
+  const requestOnBehalfEnabled = serviceCatalogItem?.allow_request_on_behalf;
 
   const {
     attachmentsOption,
@@ -368,6 +372,8 @@ export function ServiceCatalogItem({
           hasAtMentions={hasAtMentions}
           userRole={userRole}
           userId={userId}
+          requestOnBehalfEnabled={requestOnBehalfEnabled}
+          userName={userName}
           brandId={brandId}
           defaultOrganizationId={defaultOrganizationId}
           handleChange={handleFieldChange}
