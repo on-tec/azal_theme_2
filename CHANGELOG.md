@@ -1,3 +1,10 @@
+# [4.36.0](https://github.com/zendesk/copenhagen_theme/compare/v4.35.1...v4.36.0) (2026-04-17)
+
+
+### Features
+
+* add current user name as a default requester ([7932b15](https://github.com/zendesk/copenhagen_theme/commit/7932b15f42e99cfc42a36b2272e4f8031b3d23a2))
+
 ## [4.35.1](https://github.com/zendesk/copenhagen_theme/compare/v4.35.0...v4.35.1) (2026-04-10)
 
 
