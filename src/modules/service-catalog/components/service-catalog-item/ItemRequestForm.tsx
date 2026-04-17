@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Fragment, useCallback } from "react";
 import { RequestFormField } from "../../../ticket-fields";
-import { Button } from "@zendeskgarden/react-buttons";
+import { Button, Anchor } from "@zendeskgarden/react-buttons";
 import { getColor } from "@zendeskgarden/react-theming";
 import { useTranslation } from "react-i18next";
 import type { ServiceCatalogItem } from "../../data-types/ServiceCatalogItem";
@@ -48,7 +48,6 @@ const FieldsContainer = styled.div`
 
 const ButtonWrapper = styled.div`
   flex: 1;
-  margin-inline-start: ${(props) => props.theme.space.xl};
   padding: ${(props) => props.theme.space.lg};
   border: ${(props) => props.theme.borders.sm}
     ${({ theme }) => getColor({ theme, hue: "grey", shade: 300 })};
@@ -102,6 +101,19 @@ const ButtonSkeleton = styled(Skeleton)`
   display: block;
 `;
 
+const UserNameWrapper = styled.div`
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: ${(props) => props.theme.space.xxs};
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const isAssetField = (f: TicketFieldObject) =>
   f.relationship_target_type === ASSET_KEY;
 const isAssetTypeField = (f: TicketFieldObject) =>
@@ -114,6 +126,8 @@ interface ItemRequestFormProps {
   hasAtMentions: boolean;
   userRole: string;
   userId: number;
+  requestOnBehalfEnabled: boolean | undefined;
+  userName: string;
   brandId: number;
   defaultOrganizationId: string | null;
   handleChange: (
@@ -143,6 +157,8 @@ export function ItemRequestForm({
   hasAtMentions,
   userRole,
   userId,
+  requestOnBehalfEnabled,
+  userName,
   brandId,
   defaultOrganizationId,
   handleChange,
@@ -342,6 +358,23 @@ export function ItemRequestForm({
       </LeftColumn>
       <RightColumn>
         <ButtonWrapper>
+          <ButtonContainer>
+            <UserNameWrapper>
+              <Span isBold>{t("service-catalog.item.user", "User")}</Span>
+              <Span>{userName}</Span>
+            </UserNameWrapper>
+            {requestOnBehalfEnabled && (
+              <>
+                <Anchor isUnderlined={false}>
+                  {t(
+                    "service-catalog.item.change-user-requesting-on-behalf",
+                    "Change"
+                  )}
+                </Anchor>
+              </>
+            )}
+          </ButtonContainer>
+
           {isFormInitializing ? (
             <ButtonSkeleton />
           ) : (
