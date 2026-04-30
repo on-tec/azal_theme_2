@@ -301,6 +301,32 @@
       ]
     },
     {
+      "label": "Contact options",
+      "variables": [
+        {
+          "identifier": "contact_option_submit",
+          "type": "checkbox",
+          "description": "Show the Submit Request card in the contact options block",
+          "label": "Show Submit Request",
+          "value": true
+        },
+        {
+          "identifier": "contact_option_chat",
+          "type": "checkbox",
+          "description": "Show the Live Chat card in the contact options block",
+          "label": "Show Live Chat",
+          "value": true
+        },
+        {
+          "identifier": "contact_option_whatsapp",
+          "type": "checkbox",
+          "description": "Show the WhatsApp card in the contact options block",
+          "label": "Show WhatsApp",
+          "value": true
+        }
+      ]
+    },
+    {
       "label": "search_group_label",
       "variables": [
         {
