@@ -72,6 +72,7 @@
   <script>
     (function () {
       var ARROW_ICON_URL = "{{asset 'icon-arrow-right.svg'}}";
+      var LOCALE = "{{help_center.locale}}";
       var grids = document.querySelectorAll('.home-category-grid');
       var categoryLinks = document.querySelectorAll('.home-category-title-link');
 
@@ -81,7 +82,7 @@
         var categoryId = match[1];
         var grid = grids[i];
 
-        fetch('/api/v2/help_center/categories/' + categoryId + '/sections.json?per_page=100')
+        fetch('/api/v2/help_center/' + LOCALE + '/categories/' + categoryId + '/sections.json?per_page=100')
           .then(function (r) { return r.json(); })
           .then(function (data) {
             if (!data.sections) return;
