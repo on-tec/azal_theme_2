@@ -63,16 +63,7 @@
     {{#each categories}}
       <div class="home-category">
         <h2 class="home-category-title"><a href="{{url}}" class="home-category-title-link">{{name}}</a></h2>
-        <div class="home-category-grid">
-          {{#each sections}}
-            <a href="{{url}}" class="home-category-card">
-              <span class="home-category-card-name">{{name}}</span>
-              <span class="home-category-card-arrow" aria-hidden="true">
-                <img src="{{asset 'icon-arrow-right.svg'}}" alt="" width="18" height="16" />
-              </span>
-            </a>
-          {{/each}}
-        </div>
+        <div class="home-category-grid"></div>
       </div>
     {{/each}}
     {{pagination}}
@@ -93,7 +84,7 @@
         fetch('/api/v2/help_center/categories/' + categoryId + '/sections.json?per_page=100')
           .then(function (r) { return r.json(); })
           .then(function (data) {
-            if (!data.sections || data.sections.length <= 5) return;
+            if (!data.sections) return;
             grid.innerHTML = data.sections.map(function (s) {
               return '<a href="' + s.html_url + '" class="home-category-card">' +
                 '<span class="home-category-card-name">' + s.name + '</span>' +
