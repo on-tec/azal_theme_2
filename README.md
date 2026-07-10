@@ -89,6 +89,18 @@ You can add up to 10 optional templates for:
 You do this by creating files under the folders `templates/article_pages`, `templates/category_pages` or `templates/section_pages`.
 Learn more [here](https://support.zendesk.com/hc/en-us/articles/360001948367).
 
+## Secrets and local credentials
+
+**Never commit real secrets.** Zendesk credentials live in a git-ignored `.env` file locally (copy `.env.example` and fill it in) or in the `zcli login` credential store — and in GitHub Actions **secrets** for CI. `.env.example` and any sample/config file must contain **placeholder values only**, and must never include personal data (personal email addresses, names). See [SECURITY.md](SECURITY.md) for the full policy and leak runbook.
+
+A [gitleaks](https://github.com/gitleaks/gitleaks) pre-commit hook and a CI `secret-scan` job block secrets from being committed. Install the scanner so the local hook works:
+
+```console
+$ brew install gitleaks
+```
+
+If gitleaks is not installed the local hook is skipped with a warning (CI still enforces the scan).
+
 ## Stylesheet and JavaScript
 
 We use Rollup to compile the JS and CSS files that are used in the theme - `style.css` and `script.js`. Do not edit these directly as they'll be regenerated during release.
