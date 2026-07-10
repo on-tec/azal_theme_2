@@ -10,6 +10,22 @@ on:
       - beta
 
 jobs:
+  secret-scan:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: zendesk/checkout@v3
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Install gitleaks
+        run: |
+          GITLEAKS_VERSION=8.21.2
+          curl -sSfL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" | tar -xz gitleaks
+          sudo mv gitleaks /usr/local/bin/gitleaks
+      - name: Scan for secrets
+        run: gitleaks detect --config .gitleaks.toml --redact --verbose --no-banner
   commitlint:
     name: Lint commit messages
     if: ${{ github.event_name == 'pull_request' }}

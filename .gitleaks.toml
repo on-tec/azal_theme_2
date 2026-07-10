@@ -1,0 +1,20 @@
+# gitleaks config — extends the built-in ruleset with a rule for Zendesk API tokens.
+# Docs: https://github.com/gitleaks/gitleaks
+[extend]
+useDefault = true
+
+[[rules]]
+id = "zendesk-api-token"
+description = "Zendesk API token (email/token basic-auth pair)"
+# Zendesk API tokens are 40 alphanumeric chars, typically assigned to a *_TOKEN var.
+regex = '''(?i)(zendesk[_-]?(api[_-]?)?token|api[_-]?token)\s*[:=]\s*['"]?([A-Za-z0-9]{40})['"]?'''
+secretGroup = 3
+keywords = ["zendesk", "api_token", "apitoken"]
+
+[allowlist]
+description = "Ignore obvious placeholder values in sample/config files."
+regexes = [
+  '''your-api-token''',
+  '''your-subdomain''',
+  '''you@example\.com''',
+]

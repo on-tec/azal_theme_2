@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Block commits that stage a secret. Requires gitleaks on PATH (brew install gitleaks).
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks protect --staged --redact --verbose
+else
+  echo "⚠️  gitleaks not found — skipping local secret scan. Install it: brew install gitleaks" >&2
+  echo "    (CI still scans, but installing gitleaks catches secrets before they leave your machine.)" >&2
+fi
